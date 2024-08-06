@@ -1,7 +1,34 @@
-import { Notifier, Ledger, JSON } from '@klave/sdk';
+import { Notifier, Ledger, JSON, HTTP, HttpRequest } from '@klave/sdk';
 import { FetchInput, FetchOutput, StoreInput, StoreOutput, ErrorMessage } from './types';
 
 const myTableName = "my_storage_table";
+
+/**
+ * @query
+ */
+export function sampleHTTPcall(): void {
+
+    const query: HttpRequest = {
+        hostname: 'reqres.in',
+        path: '/api/users/2',
+        headers: [],
+        body: ''
+    };
+ 
+    const response = HTTP.request(query);
+    if (!response) {
+        Notifier.sendJson<ErrorMessage>({
+            success: false,
+            message: `HTTP call went wrong!`
+        });
+        return;
+    }
+
+    Notifier.sendJson<FetchOutput>({
+        success: true,
+        value: response.body
+    });
+}
 
 /**
  * @query
