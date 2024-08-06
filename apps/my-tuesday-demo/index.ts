@@ -7,7 +7,7 @@ const myTableName = "my_storage_table";
  * @query
  */
 export function ping(): void {
-    Notifier.sendString("pong from the enclave");
+    Notifier.sendString("pong from the enclave x2");
 }
 
 /**
